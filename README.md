@@ -1,4 +1,4 @@
-<h1 align="center">[Ruby] Project 3 / Milestone 1 - Project Setup </h1>
+<h1 align="center">[Ruby] Project 3 / Milestone 2 - User Interface </h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0.0.1-blue.svg?cacheSeconds=2592000" />
   <a href="#" target="_blank">
@@ -23,6 +23,13 @@ Milestone 1:
 1- Created develpment and feature branches.
 2- Added folder structure: bin and Lib folders.
 3- Added main file that puts Hello World and made it exe.
+
+Milestone 2:
+
+1 - Added the title of the game
+2 - Added prompts for usernames and choice of X's or O's
+3 - Added the look of the game display
+
 ```
 
 ## Built with
