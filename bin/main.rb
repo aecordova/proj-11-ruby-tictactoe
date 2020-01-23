@@ -28,27 +28,22 @@ module UserInterface
   end
 
   def player_turn(players)
-  	puts "Player #{players.values[0]} turn"
-    # repeated code
-    puts "Choose your field ?"
-    puts "██      ██ ║    █████    ║            
-  ██  ██   ║  ██     ██  ║            
-    ██     ║ █         █ ║            
-  ██  ██   ║  ██     ██  ║            
-██      ██ ║    █████    ║            
-═══════════╬═════════════╬════════════
-██      ██ ║    █████    ║            
-  ██  ██   ║  ██     ██  ║            
-    ██     ║ █         █ ║            
-  ██  ██   ║  ██     ██  ║            
-██      ██ ║    █████    ║            
-═══════════╬═════════════╬════════════
-██      ██ ║    █████    ║            
-  ██  ██   ║  ██     ██  ║            
-    ██     ║ █         █ ║            
-  ██  ██   ║  ██     ██  ║            
-██      ██ ║    █████    ║            "
-    gets.chomp()
+
+    player_switch = 0
+    game_on=true
+    while game_on 
+      puts "Player #{players.values[player_switch]} turn"
+      print_board #empty 1-9
+      puts "Choose your field ?"
+      gets.chomp()
+      #check if the move is a winner
+      #if winner 
+       #print current player winner
+       #get out
+      #else
+       #player_switch -= 1 if player_switch ==1
+    end 
+
   end
 end
 include UserInterface
@@ -56,4 +51,17 @@ players = {}
 
 print_title
 players = player_info
-player_turn(players)
+
+game_on = true
+
+# initial instructions for player
+
+while game_on
+  # loop for each move
+  player_turn(players)
+
+  
+  if winner # and/or draw (the exact condition in this milestone is not important)
+    game_on = false
+  end
+end
