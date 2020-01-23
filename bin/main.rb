@@ -10,58 +10,105 @@ module UserInterface
     puts "  |  |   j  l\\     |      |  |  |  |  \\     |      |  |  l     !|     T"
     puts "  l__j  |____j\\____j      l__j  l__j__j\\____j      l__j   \\___/ l_____j"
                                                                            
-    puts "\n==========================================================================\n"
+    puts "\n###########################################################################\n"
   end
   
   def player_info
     players = {}
-    puts " Enter Player 1 username?"
+    x_or_o = ""
+    proceed_or_quit = ""
+    print "\n\tEnter Player 1 username? "
     players["player1"] = gets.chomp()
-    puts " Enter Player 2 username?"
+    print "\n\n\tEnter Player 2 username? "
     players["player2"] = gets.chomp()
-    puts "--------------------------"
-    puts "Player1 please choose [X/O]"
-    # if player 1 chooses anything else other than "r/R, x/X, o/O" we will do exception hundling
-    # if player 1 chooses x/X player 2 will be o/O otherwise ...
-    puts "#{players.values[0]} chooses X and #{players.values[1]} chooses O"
-    players
+    puts "\n###########################################################################"
+    begin
+      print "\n\tPlayer1 please choose [X/O] "
+      x_or_o = gets.chomp()
+      if ["X", "O"].include? x_or_o.upcase
+        if x_or_o.upcase == "X"
+          players["X"] = players["player1"] # X is always key number 3 in hash
+          players["O"] = players["player2"] # O is always key number 4 in hash
+        else
+          players["X"] = players["player2"]
+          players["O"] = players["player1"]
+        end
+        # print players
+        return players
+      end
+      raise "\n\t\tplease choose only 'X' or 'O'..."
+    rescue StandardError=>e
+      puts e
+      sleep 1
+      print "\nTrying one more time?\t"
+      begin
+        sleep 1
+        print "press 'Enter' to proceed...\tOr "
+        sleep 2
+        puts "press 'q' to quit "
+        proceed_or_quit = gets.chomp
+        if ["", "Q"].include? proceed_or_quit.upcase
+          if proceed_or_quit.upcase == "Q"
+            print "\nGame is quiting "
+            print "in 3..."
+            sleep 1
+            print "2..."
+            sleep 1
+            print "1..."
+            sleep 1
+            exit
+          else
+            retry
+          end
+        end
+        raise "\t\t\t<== Wrong input!!!"
+      rescue StandardError=>e
+        puts e
+        retry
+      end
+    end
   end
 
   def player_turn(players)
-
-    player_switch = 0
-    game_on=true
-    while game_on 
-      puts "Player #{players.values[player_switch]} turn"
-      print_board #empty 1-9
-      puts "Choose your field ?"
-      gets.chomp()
-      #check if the move is a winner
-      #if winner 
-       #print current player winner
-       #get out
-      #else
-       #player_switch -= 1 if player_switch ==1
+    result_table = Array.new(9, "")
+    field = 0
+    player_switch = 2
+    puts "#{players["X"]} you are first..."
+    while true
+      # puts "Player #{players.values[player_switch]} turn"
+      # print_board #empty 1-9
+      begin
+        print "\t#{players.values[player_switch]} Choose your field ?"
+        field = gets.chomp()
+        if (1..9).include? field.to_i
+          if result_table[field.to_i.to_i - 1] == ""
+            result_table[field.to_i - 1] = players.keys[player_switch]
+            # print_board #empty 1-9
+          else
+            raise "\tUsed Field!!!\n"
+          end
+        else
+          raise "\t\tWrong entry!!!\n"
+        end
+      rescue StandardError=>e
+        print e
+        retry
+        # check if the move is a winner
+        # if winner 
+         # print current player winner
+         # get out
+        # else
+        
+      end
+      print result_table
+      player_switch == 2 ? player_switch += 1 : player_switch -=1
     end 
-
   end
+
 end
 include UserInterface
 players = {}
 
 print_title
 players = player_info
-
-game_on = true
-
-# initial instructions for player
-
-while game_on
-  # loop for each move
-  player_turn(players)
-
-  
-  if winner # and/or draw (the exact condition in this milestone is not important)
-    game_on = false
-  end
-end
+player_turn(players)
