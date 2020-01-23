@@ -1,3 +1,59 @@
+# frozen_string_literal: true.
 #!/usr/bin/env ruby
+module UserInterface
+  def print_title
+    puts " ______  ____    __      ______   ____    __      ______   ___     ___ "
+    puts "|      Tl    j  /  ]    |      T /    T  /  ]    |      T /   \\   /  _]"
+    puts "|      | |  T  /  /     |      |Y  o  | /  /     |      |Y     Y /  [_ "
+    puts "l_j  l_j |  | /  /      l_j  l_j|     |/  /      l_j  l_j|  O  |Y    _]"
+    puts "  |  |   |  |/   \\_       |  |  |  _  /   \\_       |  |  |     ||   [_ "
+    puts "  |  |   j  l\\     |      |  |  |  |  \\     |      |  |  l     !|     T"
+    puts "  l__j  |____j\\____j      l__j  l__j__j\\____j      l__j   \\___/ l_____j"
+                                                                           
+    puts "\n==========================================================================\n"
+  end
+  
+  def player_info
+    players = {}
+    puts " Enter Player 1 username?"
+    players["player1"] = gets.chomp()
+    puts " Enter Player 2 username?"
+    players["player2"] = gets.chomp()
+    puts "--------------------------"
+    puts "Player1 please choose [X/O]"
+    # if player 1 chooses anything else other than "r/R, x/X, o/O" we will do exception hundling
+    # if player 1 chooses x/X player 2 will be o/O otherwise ...
+    puts "#{players.values[0]} chooses X and #{players.values[1]} chooses O"
+    players
+  end
 
-puts 'hello world!'
+  def player_turn(players)
+  	puts "Player #{players.values[0]} turn"
+    # repeated code
+    puts "Choose your field ?"
+    puts "██      ██ ║    █████    ║            
+  ██  ██   ║  ██     ██  ║            
+    ██     ║ █         █ ║            
+  ██  ██   ║  ██     ██  ║            
+██      ██ ║    █████    ║            
+═══════════╬═════════════╬════════════
+██      ██ ║    █████    ║            
+  ██  ██   ║  ██     ██  ║            
+    ██     ║ █         █ ║            
+  ██  ██   ║  ██     ██  ║            
+██      ██ ║    █████    ║            
+═══════════╬═════════════╬════════════
+██      ██ ║    █████    ║            
+  ██  ██   ║  ██     ██  ║            
+    ██     ║ █         █ ║            
+  ██  ██   ║  ██     ██  ║            
+██      ██ ║    █████    ║            "
+    gets.chomp()
+  end
+end
+include UserInterface
+players = {}
+
+print_title
+players = player_info
+player_turn(players)
