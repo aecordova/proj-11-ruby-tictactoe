@@ -129,16 +129,16 @@ module UserInterface
     field = 0
     player_switch = 2
     puts "#{players["X"]} you are first..."
+    display_board(build_board(result_table))
     while true
       # puts "Player #{players.values[player_switch]} turn"
-      # print_board #empty 1-9
       begin
         print "\t#{players.values[player_switch]} Choose your field ?"
         field = gets.chomp()
         if (1..9).include? field.to_i
           if result_table[field.to_i.to_i - 1] == ""
             result_table[field.to_i - 1] = players.keys[player_switch]
-            # print_board #empty 1-9
+            display_board(build_board(result_table))
           else
             raise "\tUsed Field!!!\n"
           end
@@ -155,7 +155,7 @@ module UserInterface
         # else
         
       end
-      print result_table
+      # print result_table
       player_switch == 2 ? player_switch += 1 : player_switch -=1
     end 
   end
