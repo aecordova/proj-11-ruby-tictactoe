@@ -33,7 +33,6 @@ module UserInterface
           players["X"] = players["player2"]
           players["O"] = players["player1"]
         end
-        # print players
         return players
       end
       raise "\n\t\tplease choose only 'X' or 'O'..."
@@ -98,6 +97,7 @@ module UserInterface
        '             ']
     end
   end
+
   def build_board(choices)
     line = []
     board = []
@@ -110,6 +110,7 @@ module UserInterface
     end
     board
   end
+
   def display_board(board)
     line = ''
     0.upto(board.length - 1) do |lane|
@@ -124,14 +125,23 @@ module UserInterface
     end
     print line
   end
+
+  def winning_move(result_table, chosen_field)
+    turns_counter = 0
+    do
+      if result_table[chosen_field]
+    while turns_counter != 9 # 9 turns in total
+    turns_counter
+  end  
+
   def player_turn(players)
     result_table = Array.new(9, "")
     field = 0
     player_switch = 2
+    turns_counter = 0
     puts "#{players["X"]} you are first..."
     display_board(build_board(result_table))
     while true
-      # puts "Player #{players.values[player_switch]} turn"
       begin
         print "\t#{players.values[player_switch]} Choose your field ?"
         field = gets.chomp()
@@ -148,14 +158,9 @@ module UserInterface
       rescue StandardError=>e
         print e
         retry
-        # check if the move is a winner
-        # if winner 
-         # print current player winner
-         # get out
-        # else
-        
       end
-      # print result_table
+      # turns_counter = winning_move(result_table, field)
+      # exit if turns_counter == 9
       player_switch == 2 ? player_switch += 1 : player_switch -=1
     end 
   end
