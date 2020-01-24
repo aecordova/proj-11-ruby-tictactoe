@@ -1,4 +1,4 @@
-# frozen_string_literal: true.
+#frozen_string_literal: true.
 #!/usr/bin/env ruby
 module UserInterface
   
@@ -67,8 +67,10 @@ module UserInterface
        '  |  |   |  |/   \\_       |  |  |  _  /   \\_       |  |  |     ||   [_ ',
        '  |  |   j  l\\     |      |  |  |  |  \\     |      |  |  l     !|     T',
        '  l__j  |____j\\____j      l__j  l__j__j\\____j      l__j   \\___/ l_____j']
-    when 'div'
-      "\n###########################################################################\n"
+      when 'pad'
+       '             '
+      when 'div'
+      "\n═════════════════════════════════════════════════════════════════════════\n\n"
     when 'vbar'
       ' ║ '
     when 'hbar'
@@ -114,32 +116,48 @@ module UserInterface
     line = ''
     0.upto(board.length - 1) do |lane|
       0.upto(5) do |row|
+        line+= fig('pad')
         0.upto(board[lane].length - 1) do |col|
           line += board[lane][col][row]
           line += fig('vbar') unless col == 2
           line += "\n" unless col < 2
         end
-        line += fig('hbar') if row == 5 && lane < 2
+        line += (fig('pad')+fig('hbar')) if row == 5 && lane < 2
       end
     end
     print line
   end
 
-  # def winning_move(result_table, chosen_field)
-  #   turns_counter = 0
-  #   do
-  #     if result_table[chosen_field]
-  #   while turns_counter != 9 # 9 turns in total
-  #   turns_counter
-  # end  
+  def clear_scr
+    system 'clear'
+    system 'cls'
+  end
+
+  def winning_move?(result_table, x_or_o)
+    win_moves =[[0,1,2],[3,4,5],[6,7,8],
+                   [0,3,6],[1,4,7],[2,5,8],
+                   [2,4,6],[0,4,8]]
+    line = ''
+    win_moves.each do |pos|
+      pos.each do |i|
+        line += result_table[i]
+      end
+      return true if line == x_or_o * 3
+      line=''
+    end
+    false
+  end
 
   def player_turn(players)
+    clear_scr
+    puts fig('title')
+    puts fig('div')
     result_table = Array.new(9, "")
     field = 0
     player_switch = 2
     turns_counter = 0
-    puts "#{players["X"]} you are first..."
     display_board(build_board(result_table))
+    puts "#{players["X"]} you are first..."
     while true
       begin
         print "\t#{players.values[player_switch]} Choose your field ?"
@@ -147,6 +165,9 @@ module UserInterface
         if (1..9).include? field.to_i
           if result_table[field.to_i.to_i - 1] == ""
             result_table[field.to_i - 1] = players.keys[player_switch]
+            clear_scr
+            puts fig('title')
+            puts fig('div')
             display_board(build_board(result_table))
           else
             raise "\tUsed Field!!!\n"
@@ -158,9 +179,16 @@ module UserInterface
         print e
         retry
       end
-      # turns_counter = winning_move(result_table, field)
-      # exit if turns_counter == 9
+      if winning_move?(result_table, players.keys[player_switch])
+        print "\n\t#{players.values[player_switch]} WINS!"
+        exit
+      end
+      if turns_counter == 8
+        print "\n\tDRAW GAME - NO ONE WINS!"
+        exit
+      end
       player_switch == 2 ? player_switch += 1 : player_switch -=1
+      p turns_counter+=1
     end 
   end
 end
@@ -172,3 +200,5 @@ puts fig('div')
 players = player_info
 player_turn(players)
 
+#  choices = ['X','X','X','','','','','','']
+#  puts winning_move?(choices, 'X')
