@@ -1,17 +1,6 @@
 # frozen_string_literal: true.
 #!/usr/bin/env ruby
 module UserInterface
-  def print_title
-    puts " ______  ____    __      ______   ____    __      ______   ___     ___ "
-    puts "|      Tl    j  /  ]    |      T /    T  /  ]    |      T /   \\   /  _]"
-    puts "|      | |  T  /  /     |      |Y  o  | /  /     |      |Y     Y /  [_ "
-    puts "l_j  l_j |  | /  /      l_j  l_j|     |/  /      l_j  l_j|  O  |Y    _]"
-    puts "  |  |   |  |/   \\_       |  |  |  _  /   \\_       |  |  |     ||   [_ "
-    puts "  |  |   j  l\\     |      |  |  |  |  \\     |      |  |  l     !|     T"
-    puts "  l__j  |____j\\____j      l__j  l__j__j\\____j      l__j   \\___/ l_____j"
-                                                                           
-    puts "\n###########################################################################\n"
-  end
   
   def player_info
     players = {}
@@ -21,7 +10,7 @@ module UserInterface
     players["player1"] = gets.chomp()
     print "\n\n\tEnter Player 2 username? "
     players["player2"] = gets.chomp()
-    puts "\n###########################################################################"
+    puts fig('div')
     begin
       print "\n\tPlayer1 please choose [X/O] "
       x_or_o = gets.chomp()
@@ -70,6 +59,16 @@ module UserInterface
 
   def fig(which, ind = nil)
     case which
+    when 'title'
+      [' ______  ____    __      ______   ____    __      ______   ___     ___ ',
+       '|      Tl    j  /  ]    |      T /    T  /  ]    |      T /   \\   /  _]',
+       '|      | |  T  /  /     |      |Y  o  | /  /     |      |Y     Y /  [_ ',
+       'l_j  l_j |  | /  /      l_j  l_j|     |/  /      l_j  l_j|  O  |Y    _]',
+       '  |  |   |  |/   \\_       |  |  |  _  /   \\_       |  |  |     ||   [_ ',
+       '  |  |   j  l\\     |      |  |  |  |  \\     |      |  |  l     !|     T',
+       '  l__j  |____j\\____j      l__j  l__j__j\\____j      l__j   \\___/ l_____j']
+    when 'div'
+      "\n###########################################################################\n"
     when 'vbar'
       ' ║ '
     when 'hbar'
@@ -168,6 +167,8 @@ end
 include UserInterface
 players = {}
 
-print_title
+puts fig('title')
+puts fig('div')
 players = player_info
 player_turn(players)
+
