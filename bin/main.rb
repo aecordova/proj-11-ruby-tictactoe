@@ -126,13 +126,13 @@ module UserInterface
     print line
   end
 
-  def winning_move(result_table, chosen_field)
-    turns_counter = 0
-    do
-      if result_table[chosen_field]
-    while turns_counter != 9 # 9 turns in total
-    turns_counter
-  end  
+  # def winning_move(result_table, chosen_field)
+  #   turns_counter = 0
+  #   do
+  #     if result_table[chosen_field]
+  #   while turns_counter != 9 # 9 turns in total
+  #   turns_counter
+  # end  
 
   def player_turn(players)
     result_table = Array.new(9, "")
