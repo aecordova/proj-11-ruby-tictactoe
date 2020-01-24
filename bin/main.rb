@@ -69,6 +69,61 @@ module UserInterface
     end
   end
 
+  def fig(which, ind = nil)
+    case which
+    when 'vbar'
+      ' ║ '
+    when 'hbar'
+      "══════════════╬═══════════════╬══════════════\n"
+    when 'X'
+      ["      #{ind}      ",
+       ' ██       ██ ',
+       '   ██   ██   ',
+       '     ███     ',
+       '   ██   ██   ',
+       ' ██       ██ ']
+    when 'O'
+      ["      #{ind}      ",
+       '    █████    ',
+       '  ██     ██  ',
+       ' █         █ ',
+       '  ██     ██  ',
+       '    █████    ']
+    else
+      ["      #{ind}      ",
+       '             ',
+       '             ',
+       '             ',
+       '             ',
+       '             ']
+    end
+  end
+  def build_board(choices)
+    line = []
+    board = []
+    0.upto(choices.length) do |i|
+      line << fig(choices[i], i + 1)
+      if ((i + 1) % 3).zero?
+        board << line
+        line = []
+      end
+    end
+    board
+  end
+  def display_board(board)
+    line = ''
+    0.upto(board.length - 1) do |lane|
+      0.upto(5) do |row|
+        0.upto(board[lane].length - 1) do |col|
+          line += board[lane][col][row]
+          line += fig('vbar') unless col == 2
+          line += "\n" unless col < 2
+        end
+        line += fig('hbar') if row == 5 && lane < 2
+      end
+    end
+    print line
+  end
   def player_turn(players)
     result_table = Array.new(9, "")
     field = 0
@@ -104,7 +159,6 @@ module UserInterface
       player_switch == 2 ? player_switch += 1 : player_switch -=1
     end 
   end
-
 end
 include UserInterface
 players = {}
