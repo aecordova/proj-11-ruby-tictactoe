@@ -45,6 +45,34 @@ Ruby needs to be installed to run the code check [here](https://www.ruby-lang.or
 Inside The project Repository run the following command in the "Command line":
 > bin/main.rb
 ```
+## ⭐️ Game Instructions
+
+1. Run te game 
+```
+    ruby main.rb
+```
+2. Once the splash screen is up, enter the player names:  
+  ![img](img/img1.png)
+
+3. Player one chooses to play whether X's or O's:  
+  ![img](img/img2.png)  
+  *In case you dont pick X or O, it will give you an error:  
+  ![img](img/img6_error.png)
+
+4. Once the board is displayed, both players take turns to select the box to put his mark using the numbers form 1-9:  
+  ![img](img/img4.png)  
+    *In case you pick a wrong character or an already used box, it will give you an error:  
+  ![img](img/img7_error2.png)
+
+
+
+5. The player that gets to mark 3 boxes in a row wins!  
+    ![img](img/img5.png)
+
+## ⭐️ GamePlay
+  ![gameplay](gameplay.gif)
+
+
 
 ## Author
 
