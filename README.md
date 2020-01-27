@@ -30,6 +30,16 @@ Milestone 2:
 2 - Added prompts for usernames and choice of X's or O's
 3 - Added the look of the game display
 
+Milestone 3:
+
+1 - Refactorising the code into modules and class
+2 - fixed the Rubocob errors
+3 - The Game is playable
+
+Milestone 4:
+
+1 - Added further instructions in the ReadMe file
+
 ```
 
 ## Built with
