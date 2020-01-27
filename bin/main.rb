@@ -2,6 +2,7 @@
 # !/usr/bin/env ruby
 require_relative '../lib/player.rb'
 require_relative '../lib/game_layout.rb'
+require_relative '../lib/game.rb'
 module UserInterface
   include GameLayout
   def player_info(player1, player2)
@@ -56,13 +57,52 @@ module UserInterface
       end
     end
   end
+
+  def game_play(game, player1, player2)
+    players = { player1.x_or_o => player1.username,
+                player2.x_or_o => player2.username }
+    clear_scr
+    puts fig('title')
+    puts fig('div')
+    player_switch = 0
+    display_board(build_board(game.result_table))
+    puts "#{player1.username} you are first..."
+    loop do
+      begin
+        print "\t#{players.values[player_switch]} Choose your field ?"
+        game.field = gets.chomp
+        raise "\t\tWrong entry!!!\n" unless (1..9).include? game.field.to_i
+        raise "\tUsed Field!!!\n" unless game.result_table[game.field.to_i - 1] == ''
+
+        game.result_table[game.field.to_i - 1] = players.keys[player_switch]
+        clear_scr
+        puts fig('title')
+        puts fig('div')
+        display_board(build_board(game.result_table))
+      rescue StandardError => e
+        print e
+        retry
+      end
+      if game.winning_move?(game.result_table, players.keys[player_switch])
+        print "\n\t#{players.values[player_switch]} WINS!"
+        exit
+      end
+      if game.turns_counter == 8
+        print "\n\tDRAW GAME - NO ONE WINS!"
+        exit
+      end
+      player_switch.zero? ? player_switch += 1 : player_switch -= 1
+      game.turns_counter += 1
+    end
+  end  
 end
 
 include UserInterface
 player1 = Player.new("", "")
 player2 = Player.new("", "")
+game = Game.new
 
 puts fig('title')
 puts fig('div')
 player_info(player1, player2)
-Player.play(player1, player2)
+game_play(game, player1, player2)
