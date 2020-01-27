@@ -70,7 +70,7 @@ Inside The project Repository run the following command in the "Command line":
     ![img](img/img5.png)
 
 ## ⭐️ GamePlay
-  ![gameplay](gameplay.gif)
+  ![gameplay](img/gameplay.gif)
 
 
 
