@@ -1,7 +1,7 @@
-#frozen_string_literal: true.
-#!/usr/bin/env ruby
-require './lib/player.rb'
-require './lib/game_layout.rb'
+# frozen_string_literal: true
+# !/usr/bin/env ruby
+require_relative '../lib/player.rb'
+require_relative '../lib/game_layout.rb'
 module UserInterface
   include GameLayout
   def player_info(player1, player2)
