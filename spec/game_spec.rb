@@ -13,10 +13,11 @@ RSpec.describe Game do
   end
 end
 
+# rubocop: disable Metrics/BlockLength, Layout/LineLength
 RSpec.describe GameLayout do
   include GameLayout
   describe '#fig' do
-    it 'prints the figure related the parameters' do
+    it 'Returns the figure related the parameters' do
       expect(fig('X', 5)).to eql(['      5      ',
                                   ' ██       ██ ',
                                   '   ██   ██   ',
@@ -146,3 +147,4 @@ RSpec.describe GameLayout do
     end
   end
 end
+# rubocop: enable Metrics/BlockLength, Layout/LineLength
