@@ -55,6 +55,13 @@ Ruby needs to be installed to run the code check [here](https://www.ruby-lang.or
 Inside The project Repository run the following command in the "Command line":
 > bin/main.rb
 ```
+## ⭐️ Testing the code with RSpec
+```
+Inside The spec directory run the following command in the "Command line":
+> rspec game_spec.rb
+
+**The previous command tests the winning method of the Tic-Tac-Toe Project
+```
 ## ⭐️ Game Instructions
 
 1. Run te game 
